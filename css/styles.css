@@ -1,0 +1,61 @@
+body {
+    padding-top: 5rem;
+}
+
+.starter-template {
+    padding: 3rem 1.5rem;
+    text-align: center;
+}
+
+.logoIm{
+    width: auto;
+    height: 40px;
+}
+
+.page-footer{
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: black;
+    color: white;
+    padding: 1%;
+}
+
+.nav-link{
+    text-decoration: none;
+}
+
+.navbar-dark .navbar-brand{
+   height: 40px;
+    width: 150px;
+}
+
+.btn-dark{
+    margin-top: 20px;
+    width: 20%;
+}
+
+.loginForm .container-fluid{
+    border: 1px solid black;
+    width: 25%;
+    height: auto;
+    
+}
+
+.loginForm{
+    width:400px;
+    height: auto; 
+     
+
+}
+
+.block1,.block2,.block3
+{
+    background: #212529;
+    margin: 0;
+    padding: 0;
+    
+    color: white;
+}
+
