@@ -8,84 +8,93 @@
     <meta name="author" content="">
     <link rel="icon" href="">
 
-    <title>Starter Template for Bootstrap</title>
+    <title>Admin Dashboard</title>
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"
-    integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-    crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
 
 
     <link href="css/styles.css" rel="stylesheet">
     <script src="js/scripts.js" type="text/javascript"></script>
     <script>
         var APIURL = "http://localhost:58492/api/EventTables";
-        $(document).ready(function(){
+
+        // Event Calls for past events
+
+        $(document).ready(function() {
             $.ajax({
                 type: 'GET',
                 url: APIURL + "/GetPastEvents",
                 dataType: 'json',
-                success: function(data){
-                    getCount(data);
-                    addToTable(data);
+                success: function(data) {
+                    getCountPast(data);
+                    addToTable(data, "#pasteventTable");
                 },
-                error: function(request, status, error){
+                error: function(request, status, error) {
                     alert(error);
                 }
             });
         });
-        
-        // Event Calls
-        
-        $(document).ready(function(){
+
+        // Event Calls for upcoming events
+
+        $(document).ready(function() {
             $.ajax({
                 type: 'GET',
                 url: APIURL + "/GetEventTables",
                 dataType: 'json',
-                success: function(data){
-                    getCount(data);
-                    addToTable(data, "#pasteventTable");
+                success: function(data) {
+                    getCountUpcoming(data);
+                    addToTable(data, "#upcomingeventTable");
                 },
-                error: function(request, status, error){
+                error: function(request, status, error) {
                     alert(error);
                 }
             });
-        });        
-        
-        function getCount(data){
+        });
+
+        function getCountPast(data) {
             var len = Object.keys(data).length
             $("#pastCounter").append(len);
         }
-        
-        
-        function addToTable (obj, tab_name){
-        //Iterating over the collection of data
-        $.each(obj, function(index, rowData){
-            addRow(rowData, tab_name);
-        });
-    }
-    
-    function addRow(rowData, tab_name){
-        if ($(tab_name+" tbody").length == 0) {
-            $(tab_name).append("<tbody></tbody>")
+
+        function getCountUpcoming(data) {
+            var len = Object.keys(data).length
+            $("#upcomingCounter").append(len);
+        }
+
+
+        function addToTable(obj, tab_name) {
+            //Iterating over the collection of data
+            $.each(obj, function(index, rowData) {
+                addRow(rowData, tab_name);
+            });
+        }
+
+        function addRow(rowData, tab_name) {
+            if ($(tab_name + " tbody").length == 0) {
+                $(tab_name).append("<tbody></tbody>")
+            }
+
+            //Append Rows
+            $(tab_name + " tbody").append(
+                buildTable(rowData));
+        }
+
+        function buildTable(rowData) {
+            var ret =
+                "<tr>" +
+                "<td>" + rowData.Ename + "</td>" +
+                "<td>" + rowData.Pname + "</td>" +
+                "<td>" + rowData.Edate + "</td>" +
+                "</tr>";
+            return ret;
         }
         
-        //Append Rows
-        $(tab_name+" tbody").append(
-        buildTable(rowData));
-    }    
-    
-    function buildTable(rowData){
-        var ret = 
-            "<tr>" +
-            "<td>" + rowData.Ename + "</td>" +
-            "<td>" + rowData.Pname + "</td>" +
-            "<td>" + rowData.Edate + "</td>" +
-            "</tr>";
-        return ret;
-    }
-    
+
+        
+        
     </script>
 
 
@@ -103,8 +112,8 @@
 
         <div class="collapse navbar-collapse" id="navbarsExampleDefault">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Home</span></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="www.cygrp.com">Company Website</a>
@@ -119,8 +128,14 @@
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">
-                <li class="navbar-item">
-                    <a class="nav-link" href="#">Event Manager</a>
+                <li class="navbar-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Event Manager</a>
+                    <div class="dropdown-menu" aria-labelledby="eventManagerDropdown">
+                        <a class="dropdown-item" id="addEventButton">Add Event</a>
+                        <a class="dropdown-item" href="#">Update Event</a>
+                        <a class="dropdown-item" href="#">Delete Event</a>
+
+                    </div>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="http://example.com" id="adminDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Hello Admin</a>
@@ -136,7 +151,8 @@
 
         </div>
     </nav>
-    
+
+
     <div class="container">
         <div class="row">
             <div class="col-md-6">
@@ -144,7 +160,7 @@
                 <span class="badge badge-primary">Past Events</span>
             </div>
             <div class="col-md-6">
-                <table id="eventTable" class="table table-sm">
+                <table id="pasteventTable" class="table table-sm">
                     <thead>
                         <tr>
                             <th>Event Name</th>
@@ -161,6 +177,18 @@
             <div class="col-md-6">
                 <button class="btn btn-default btn-circle" id="upcomingCounter">0</button>
                 <span class="badge badge-primary">Upcoming Events</span>
+            </div>
+            <div class="col-md-6">
+                <table id="upcomingeventTable" class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th>Event Name</th>
+                            <th>Presenter Name</th>
+                            <th>Event Date</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
             </div>
         </div>
     </div>
