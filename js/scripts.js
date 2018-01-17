@@ -74,3 +74,42 @@ function apiPushForRegisterEvent(boolPassedValue, dateValue){
     }) 
 }
 
+
+//Administrator Login Code
+function admin_login(){
+    location.href = 'admin_dashboard.html';
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
