@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="techtalk">
 
 <head>
     <meta charset="utf-8">
@@ -13,6 +13,7 @@
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
 
 
     <link href="css/styles.css" rel="stylesheet">
@@ -21,7 +22,17 @@
         var APIURL = "http://localhost:58492/api/EventTables";
 
         // Event Calls for past events
+        
+         function getCountPast(data) {
+            var len = Object.keys(data).length
+            $("#pastCounter").append(len);
+        }
 
+        function getCountUpcoming(data) {
+            var len = Object.keys(data).length
+            $("#upcomingCounter").append(len);
+        }
+/* 
         $(document).ready(function() {
             $.ajax({
                 type: 'GET',
@@ -39,7 +50,7 @@
 
         // Event Calls for upcoming events
 
-        $(document).ready(function() {
+       $(document).ready(function() {
             $.ajax({
                 type: 'GET',
                 url: APIURL + "/GetEventTables",
@@ -54,15 +65,7 @@
             });
         });
 
-        function getCountPast(data) {
-            var len = Object.keys(data).length
-            $("#pastCounter").append(len);
-        }
-
-        function getCountUpcoming(data) {
-            var len = Object.keys(data).length
-            $("#upcomingCounter").append(len);
-        }
+       
 
 
         function addToTable(obj, tab_name) {
@@ -92,7 +95,7 @@
             return ret;
         }
         
-
+*/
         
         
     </script>
@@ -102,7 +105,7 @@
 </head>
 
 
-<body>
+<body ng-controller="AdminController" ng-init="getUpcomingEvents(); getPastEvents();">
 
     <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
         <a class="navbar-brand" href="#"><img class="logoIm" src="logo.png"></a>
@@ -169,7 +172,13 @@
                             <th>Event Date</th>
                         </tr>
                     </thead>
-                    <tbody></tbody>
+                    <tbody>
+                        <tr ng-repeat="row in Pastrows">
+                            <td>{{row.Ename}}</td>
+                            <td>{{row.Pname}}</td>
+                            <td>{{row.Edate}}</td>
+                        </tr>
+                    </tbody>
                 </table>
             </div>
         </div>
@@ -188,7 +197,13 @@
                             <th>Event Date</th>
                         </tr>
                     </thead>
-                    <tbody></tbody>
+                    <tbody>
+                        <tr ng-repeat="row in rows">
+                            <td>{{row.Ename}}</td>
+                            <td>{{row.Pname}}</td>
+                            <td>{{row.Edate}}</td>
+                        </tr>
+                    </tbody>
                 </table>
             </div>
         </div>

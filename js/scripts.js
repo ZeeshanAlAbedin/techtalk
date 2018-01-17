@@ -1,7 +1,9 @@
+var techtalk = angular.module('techtalk', []);
+
 $(document).ready(function (e) {
 
     $(".loginForm").hide();
-    
+
     $("#showBtn").click(function (e) {
         $(".loginForm").show();
     });
@@ -12,7 +14,7 @@ $(document).ready(function (e) {
 var APIURL = "http://localhost:58492/api/EventTables";
 
 //Register Event Code for ID present in Event_Add Page
-function registerEvent(){
+function registerEvent() {
 
     var edate = document.getElementById("eventDate").value;
     var tempdate = new Date(edate);
@@ -20,37 +22,36 @@ function registerEvent(){
     var todayDate = new Date();
     //Convert date format to YYYY/MM/DD
     var formattedDate = convertDateFormatToYYYYMMDD(tempdate);
-    if(tempdate > todayDate){
+    if (tempdate > todayDate) {
         console.log("Upcoming");
         //Function that will call the API
         var isPassed = false;
-        apiPushForRegisterEvent(isPassed, formattedDate);        
-    }
-    else{
+        apiPushForRegisterEvent(isPassed, formattedDate);
+    } else {
         console.log("Passed");
-        if(confirm("You are about to add an already passed event. Continue?") == true){
+        if (confirm("You are about to add an already passed event. Continue?") == true) {
             //Function that will call the API
             var isPassed = true;
             apiPushForRegisterEvent(isPassed, formattedDate);
-            
-        }else 
+
+        } else
             console.log("False");
-    } 
+    }
 
 }
 
 //Function to convert Date format
-function convertDateFormatToYYYYMMDD(tempDate){
+function convertDateFormatToYYYYMMDD(tempDate) {
     var dd = tempDate.getDate();
-    var mn = tempDate.getMonth()+1;
+    var mn = tempDate.getMonth() + 1;
     var yr = tempDate.getFullYear();
-    var formattedDate = yr+"/"+mn+"/"+dd;
+    var formattedDate = yr + "/" + mn + "/" + dd;
     return formattedDate;
 }
 
 //Function to call api for data insertion
-function apiPushForRegisterEvent(boolPassedValue, dateValue){
-    
+function apiPushForRegisterEvent(boolPassedValue, dateValue) {
+
     var eventObject = {
         Ename: $('#eventName').val(),
         Pname: $('#presenterName').val(),
@@ -62,54 +63,81 @@ function apiPushForRegisterEvent(boolPassedValue, dateValue){
         url: APIURL + "/PostEventTable",
         cache: false,
         type: 'POST',
-        dataType : 'json',
+        dataType: 'json',
         data: eventObject,
-        success: function (){
-                alert("Addition Successful")
+        success: function () {
+            alert("Addition Successful")
         },
-        error: function (){
+        error: function () {
             alert("Oops! Something went wrong")
         }
 
-    }) 
+    })
 }
 
 
 //Administrator Login Code
-function admin_login(){
+function admin_login() {
     location.href = 'admin_dashboard.html';
 }
 
 
 
 
+techtalk.controller('EventController', function ($scope, $http) {
+    $scope.home = "This is the Homepage";
+
+    $scope.getRequest = function () {
+
+        $scope.rows =
+            console.log("I've been pressed!");
+        $http.get("http://localhost:58492/api/EventTables/GetEventTables")
+            .then(function successCallback(response) {
+                $scope.rows = response.data;
+                var dupRow = $scope.rows[0]
+
+            }, function errorCallback(response) {
+                console.log("Unable to perform get request");
+            });
+    };
+});
 
 
+techtalk.controller('AdminController', function ($scope, $http) {
+    $scope.home = "This is the Homepage";
+
+    $scope.getUpcomingEvents = function () {
+
+        $scope.rows =
+
+            $http.get("http://localhost:58492/api/EventTables/GetEventTables")
+            .then(function successCallback(response) {
+                $scope.rows = response.data;
+            var len = Object.keys(response.data).length;
+            console.log(len);
 
 
+            }, function errorCallback(response) {
+                console.log("Unable to perform get request");
+            });
+    };
+    
+    $scope.getPastEvents = function () {
+
+        $scope.rows =
+
+            $http.get("http://localhost:58492/api/EventTables/GetPastEvents")
+            .then(function successCallback(response) {
+                $scope.Pastrows = response.data;
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            }, function errorCallback(response) {
+                console.log("Unable to perform get request");
+            });
+    };
+    
+    
+});
 
 
 
