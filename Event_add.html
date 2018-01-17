@@ -76,8 +76,24 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-md-6">
-                
+            <div class="col-md-9">
+               <div class="d-flex flex-column">
+                   <div class="p-2">
+                       <input type="text" class="form-control mr-sm-2 mb-2 mb-sm-0" placeholder="Event Name" id="eventName">
+                   </div>
+                   <div class="p-2">
+                       <input type="text" class="form-control mr-sm-2 mb-2 mb-sm-0" placeholder="Presenter Name" id="presenterName">
+                   </div>
+                   <div class="p-2">
+                       <textarea placeholder="Event Description" class="form-control mr-sm-2 mb-2 mb-sm-0" id="eventDes"></textarea>
+                   </div>
+                   <div class="p-2">
+                       <input type="date" placeholder="Event Date" class="form-control mr-sm-2 mb-2 mb-sm-0" id="eventDate">
+                   </div>
+                   <div class="p-1">
+                       <button type="button" class="btn btn-dark" onclick="registerEvent()">Register Event</button>
+                   </div>
+               </div> 
             </div>
         </div>
     </div>
