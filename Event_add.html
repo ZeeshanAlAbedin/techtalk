@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="techtalk">
 
 <head>
     <meta charset="utf-8">
@@ -13,18 +13,18 @@
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
 
     <link href="css/styles.css" rel="stylesheet">
     <script src="js/scripts.js" type="text/javascript"></script>
-  
+
 
 
 
 </head>
 
 
-<body>
+<body ng-controller="AddEventController">
 
     <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
         <a class="navbar-brand" href="#"><img class="logoIm" src="logo.png"></a>
@@ -77,23 +77,23 @@
     <div class="container">
         <div class="row">
             <div class="col-md-9">
-               <div class="d-flex flex-column">
-                   <div class="p-2">
-                       <input type="text" class="form-control mr-sm-2 mb-2 mb-sm-0" placeholder="Event Name" id="eventName">
-                   </div>
-                   <div class="p-2">
-                       <input type="text" class="form-control mr-sm-2 mb-2 mb-sm-0" placeholder="Presenter Name" id="presenterName">
-                   </div>
-                   <div class="p-2">
-                       <textarea placeholder="Event Description" class="form-control mr-sm-2 mb-2 mb-sm-0" id="eventDes"></textarea>
-                   </div>
-                   <div class="p-2">
-                       <input type="date" placeholder="Event Date" class="form-control mr-sm-2 mb-2 mb-sm-0" id="eventDate">
-                   </div>
-                   <div class="p-1">
-                       <button type="button" class="btn btn-dark" onclick="registerEvent()">Register Event</button>
-                   </div>
-               </div> 
+                <div class="d-flex flex-column">
+                    <div class="p-2">
+                        <input type="text" class="form-control mr-sm-2 mb-2 mb-sm-0" placeholder="Event Name" id="eventName">
+                    </div>
+                    <div class="p-2">
+                        <input type="text" class="form-control mr-sm-2 mb-2 mb-sm-0" placeholder="Presenter Name" id="presenterName">
+                    </div>
+                    <div class="p-2">
+                        <textarea placeholder="Event Description" class="form-control mr-sm-2 mb-2 mb-sm-0" id="eventDes"></textarea>
+                    </div>
+                    <div class="p-2">
+                        <input type="date" placeholder="Event Date" class="form-control mr-sm-2 mb-2 mb-sm-0" id="eventDate">
+                    </div>
+                    <div class="p-1">
+                        <button type="button" class="btn btn-dark" ng-click="registerEvent()">Register Event</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

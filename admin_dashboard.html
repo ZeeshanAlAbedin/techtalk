@@ -22,8 +22,8 @@
         var APIURL = "http://localhost:58492/api/EventTables";
 
         // Event Calls for past events
-        
-         function getCountPast(data) {
+
+        function getCountPast(data) {
             var len = Object.keys(data).length
             $("#pastCounter").append(len);
         }
@@ -32,7 +32,11 @@
             var len = Object.keys(data).length
             $("#upcomingCounter").append(len);
         }
-/* 
+
+        //Legacy Code for Jquery Api calls and Table Generation
+        //Use this code if AngularJS is not working as intended
+
+        /* 
         $(document).ready(function() {
             $.ajax({
                 type: 'GET',
@@ -96,8 +100,6 @@
         }
         
 */
-        
-        
     </script>
 
 
@@ -137,7 +139,7 @@
                         <a class="dropdown-item" id="addEventButton" href="Event_add.html">Add Event</a>
                         <a class="dropdown-item" href="#">Update Event</a>
                         <a class="dropdown-item" href="#">Delete Event</a>
-                        
+
 
                     </div>
                 </li>
@@ -160,7 +162,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6">
-                <button class="btn btn-default btn-circle" id="pastCounter">0</button>
+                <button class="btn btn-default btn-circle" id="pastCounter">{{lenPast}}</button>
                 <span class="badge badge-primary">Past Events</span>
             </div>
             <div class="col-md-6">
@@ -185,7 +187,7 @@
         <br>
         <div class="row">
             <div class="col-md-6">
-                <button class="btn btn-default btn-circle" id="upcomingCounter">0</button>
+                <button class="btn btn-default btn-circle" id="upcomingCounter">{{lenUpcoming}}</button>
                 <span class="badge badge-primary">Upcoming Events</span>
             </div>
             <div class="col-md-6">
