@@ -23,15 +23,7 @@
 
         // Event Calls for past events
 
-        function getCountPast(data) {
-            var len = Object.keys(data).length
-            $("#pastCounter").append(len);
-        }
-
-        function getCountUpcoming(data) {
-            var len = Object.keys(data).length
-            $("#upcomingCounter").append(len);
-        }
+        
 
         //Legacy Code for Jquery Api calls and Table Generation
         //Use this code if AngularJS is not working as intended
@@ -138,7 +130,7 @@
                     <div class="dropdown-menu" aria-labelledby="eventManagerDropdown">
                         <a class="dropdown-item" id="addEventButton" href="Event_add.html">Add Event</a>
                         <a class="dropdown-item" href="#">Update Event</a>
-                        <a class="dropdown-item" href="#">Delete Event</a>
+                        <a class="dropdown-item" href="Event_remove.html">Delete Event</a>
 
 
                     </div>

@@ -24,7 +24,7 @@
 </head>
 
 
-<body ng-controller="AddEventController">
+<body ng-controller="RemoveEventController" ng-init="getAllEvents()">
 
     <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
         <a class="navbar-brand" href="#"><img class="logoIm" src="logo.png"></a>
@@ -53,9 +53,9 @@
                 <li class="navbar-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Event Manager</a>
                     <div class="dropdown-menu" aria-labelledby="eventManagerDropdown">
-                        <a class="dropdown-item" href="admin_dashboard.html">Dashboard</a>
+                        <a class="dropdown-item" href="Event_add.html">Add Event</a>
                         <a class="dropdown-item" href="#">Update Event</a>
-                        <a class="dropdown-item" href="Event_remove.html">Delete Event</a>
+                        <a class="dropdown-item" href="admin_dashboard.html">Dashboard</a>
 
                     </div>
                 </li>
@@ -74,26 +74,36 @@
         </div>
     </nav>
 
+
+    <!-- GET LIST OF ALL EVENTS WITH A DELETE BUTTON -->
+
     <div class="container">
         <div class="row">
-            <div class="col-md-9">
-                <div class="d-flex flex-column">
-                    <div class="p-2">
-                        <input type="text" class="form-control mr-sm-2 mb-2 mb-sm-0" placeholder="Event Name" id="eventName">
-                    </div>
-                    <div class="p-2">
-                        <input type="text" class="form-control mr-sm-2 mb-2 mb-sm-0" placeholder="Presenter Name" id="presenterName">
-                    </div>
-                    <div class="p-2">
-                        <textarea placeholder="Event Description" class="form-control mr-sm-2 mb-2 mb-sm-0" id="eventDes"></textarea>
-                    </div>
-                    <div class="p-2">
-                        <input type="date" placeholder="Event Date" class="form-control mr-sm-2 mb-2 mb-sm-0" id="eventDate">
-                    </div>
-                    <div class="p-1">
-                        <button type="button" class="btn btn-dark" ng-click="registerEvent()">Register Event</button>
-                    </div>
-                </div>
+            <div class="col-sm-9">
+                <table id="eventTable" class="table table-bordered table-condensed table-striped table-sm">
+                    <thead>
+                        <tr>
+                            <th>Event Name</th>
+                            <th>Presenter Name</th>
+                            <th>Event Date</th>
+                            <th>Delete Event</th>
+                            <th>"ID for Debug"</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="row in rows">
+                            <td>{{row.Ename}}</td>
+                            <td>{{row.Pname}}</td>
+                            <td>{{row.Edate}}</td>
+                            <td><input type="button" value="Delete" class="btn btn-sm" ng-click="deleteEvent(row.ID)"></td>
+                            <td>{{row.ID}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-sm-3">
+
+
             </div>
         </div>
     </div>
