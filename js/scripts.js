@@ -180,5 +180,35 @@ techtalk.controller('AddEventController', function ($scope, $http) {
             });
     };
 });
+techtalk.controller("ALoginController", ['$scope','$window','$http', function ($scope, $window,$http) {
+    $scope.username = '';
+    $scope.password = '';
+    $scope.responseMessage = '';
+    $scope.isSubmitButtonDisabled = false;
+
+    $scope.loginSubmit = function () {
+
+        var userdata = {
+            Username: $scope.username,
+            Password: $scope.password
+        };
+
+        var config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        };
+
+        $http.post('http://localhost:58492/api/Admin_Table/LoginCheck', userdata, config).then(function (successResponse) {
+           
+            $scope.isSubmitButtonDisabled = true;
+            $window.location.href = 'admin_dashboard.html'
+            alert("Login Successfull");
+        }, function (errorResponse) {
+          
+            $scope.responseMessage = 'Email or Password is incorrect';
+        });
+    }
+}]);
 
 
