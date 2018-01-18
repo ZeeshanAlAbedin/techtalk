@@ -19,8 +19,7 @@
     <link href="css/styles.css" rel="stylesheet">
     <script src="js/scripts.js" type="text/javascript"></script>
     <script>
-        var APIURL = "http://localhost:58492/api/EventTables";
-
+        
         // Event Calls for past events
 
         
@@ -99,7 +98,7 @@
 </head>
 
 
-<body ng-controller="AdminController" ng-init="getUpcomingEvents(); getPastEvents();">
+<body ng-controller="AdminController" ng-init="getUpcomingEvents(); getPastEvents(); adminInit();">
 
     <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
         <a class="navbar-brand" href="#"><img class="logoIm" src="logo.png"></a>

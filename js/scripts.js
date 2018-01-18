@@ -73,11 +73,6 @@ function DefunctapiPushForRegisterEvent(boolPassedValue, dateValue) {
 */
 
 
-//Administrator Login Code
-function admin_login() {
-    location.href = 'admin_dashboard.html';
-}
-
 // ANGULAR JS IMPLEMENTATION
 
 //USER Page Controller
@@ -99,13 +94,20 @@ techtalk.controller('EventController', function ($scope, $http) {
 
 //Admin Page Controller
 techtalk.controller('AdminController', function ($scope, $http) {
+    
+    $scope.adminInit = function (){
+        $scope.name = localStorage.getItem('auname');
+        
+        console.log($scope.name);
+    }
+    
     $scope.getUpcomingEvents = function () {
         $scope.rows =
             $http.get("http://localhost:58492/api/EventTables/GetEventTables")
             .then(function successCallback(response) {
                 $scope.rows = response.data;
                 $scope.lenUpcoming = Object.keys(response.data).length;
-                console.log(lenUpcoming);
+                
             }, function errorCallback(response) {
                 console.log("Unable to perform get request");
             });
@@ -182,19 +184,21 @@ techtalk.controller('AddEventController', function ($scope, $http) {
             });
     };
 });
+
+//Administrator Login Controller
+
 techtalk.controller("ALoginController", ['$scope','$window','$http', function ($scope, $window,$http) {
+    
     $scope.username = '';
     $scope.password = '';
     $scope.responseMessage = '';
     $scope.isSubmitButtonDisabled = false;
 
     $scope.loginSubmit = function () {
-
         var userdata = {
-            Username: $scope.username,
-            Password: $scope.password
+            Username: $scope.name,
+            Password: $scope.pass
         };
-
         var config = {
             headers: {
                 'Content-Type': 'application/json'
@@ -202,13 +206,11 @@ techtalk.controller("ALoginController", ['$scope','$window','$http', function ($
         };
 
         $http.post('http://localhost:58492/api/Admin_Table/LoginCheck', userdata, config).then(function (successResponse) {
-           
-            $scope.isSubmitButtonDisabled = true;
-            $window.location.href = 'admin_dashboard.html'
-            alert("Login Successfull");
+            console.log(successResponse);
         }, function (errorResponse) {
           
-            $scope.responseMessage = 'Email or Password is incorrect';
+            //$scope.responseMessage = 'Email or Password is incorrect';
+            alert('Email or Password is incorrect');
         });
     }
 }]);
@@ -239,4 +241,27 @@ techtalk.controller('RemoveEventController', function ($scope, $http) {
                 console.log("An error occured!");
             });
     };
+});
+
+//Update Page Controller
+techtalk.controller('UpdateEventController', function ($scope, $http) {
+    $scope.updateEvent = function (eventID) {
+        
+        var parameteres = $.param({
+            id: eventID,        
+            Ename: $("#jqEname").val(),
+            Pname: $("#jqPname").val(),
+            Edate : $("#jqEdate").val()
+        });
+        console.log(parameteres);
+        $http.put(APIURL + '/UpdateEventTable', parameteres)
+        .success(function (){
+            alert("Updation successful");
+        })
+        .error(function (){
+            console.log("ERROR!!!");
+        });
+    };
+ 
+    
 });
