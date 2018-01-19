@@ -8,7 +8,7 @@
     <meta name="author" content="">
     <link rel="icon" href="">
 
-    <title>Starter Template for Bootstrap</title>
+    <title>Tech Talk</title>
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
@@ -24,7 +24,7 @@
 </head>
 
 
-<body ng-controller="ALoginController">
+<body>
 
     <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
         <a class="navbar-brand" href="#"><img class="logoIm" src="logo.png"></a>
@@ -49,13 +49,14 @@
                     </div>
                 </li>
             </ul>
-            <ul class="navbar-nav ml-auto">
+            <ul class="navbar-nav ml-auto" ng-controller="ALoginController">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Admin Login</a>
                     <a class="dropdown-menu">
-                        <input type="email" ng-model="name" id="name" placeholder="Email">
-                        <input type="password" ng-model="pass" id="pass" placeholder="Password">
-                        <input type="button" value="Login" class="btn btn-sm" ng-click = 'loginSubmit()'>
+                        <input type="email" placeholder="Email" ng-model="username">
+                        <input type="password" placeholder="Password" ng-model="password">
+                        <input type="submit" value="Login" class="btn btn-dark" ng-click="loginSubmit1()">
+                        <p>{{responseMessage}}</p>
                     </a>
                 </li>
             </ul>
@@ -69,30 +70,29 @@
             <h1>Welcome to CyberGroup Tech Talks</h1>
             <p class="lead">Login with your CyberGroup ID to <br>gain access to all the upcoming <strong>Tech Talks</strong></p>
             <div class="row">
-                <div class="col-md-12 col-sm-4">
-                    <button type="button" class="btn btn-dark" id="showBtn"><strong>LOGIN</strong></button>
-                </div>
+                
             </div>
 
 
         </div>
     </div>
+    
     <!-- Login Container -->
-    <div class="loginForm">
+    <div class="loginForm" ng-controller="ULoginController">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <input class="form-control" type="email" placeholder="Email" id="email">
+                    <input class="form-control" type="email" placeholder="Email" id="username" ng-model="username">
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <input class="form-control" type="password" placeholder="Password" id="password">
+                    <input class="form-control" type="password" placeholder="Password" id="password" ng-model="password">
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <input class="btn btn-dark" type="button" id="loginbtn" value="LOGIN">
+                    <input class="btn btn-dark" type="submit" id="loginbtn" value="LOGIN" ng-click="uloginSubmit()">
                 </div>
 
 
