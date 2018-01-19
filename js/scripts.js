@@ -185,8 +185,8 @@ techtalk.controller('AddEventController', function ($scope, $http) {
     };
 });
 
-//Administrator Login Controller
 
+//Administrator Login Controller
 techtalk.controller("ALoginController", ['$scope','$window','$http', function ($scope, $window,$http) {
     
     $scope.username = '';
@@ -216,7 +216,13 @@ techtalk.controller("ALoginController", ['$scope','$window','$http', function ($
 }]);
 
 //Remove Event Page Controller
-techtalk.controller('RemoveEventController', function ($scope, $http) {
+techtalk.controller('RemoveEventController', function ($scope, $http, $rootScope) {
+    
+    //Setting the getAllEvents as a broadcastable method
+    $rootScope.$on("CallgetAPI", function(){
+        $scope.getAllEvents();
+    });
+    
     $scope.getAllEvents = function () {
         $http.get(APIURL + '/GetAllEvents')
             .then(function successCallback(response) {
@@ -244,19 +250,24 @@ techtalk.controller('RemoveEventController', function ($scope, $http) {
 });
 
 //Update Page Controller
-techtalk.controller('UpdateEventController', function ($scope, $http) {
+techtalk.controller('UpdateEventController', function ($scope, $http, $rootScope) {
     $scope.updateEvent = function (eventID) {
         
-        var parameteres = $.param({
-            id: eventID,        
+        var updateData = {
+            //id: eventID,        
             Ename: $("#jqEname").val(),
             Pname: $("#jqPname").val(),
             Edate : $("#jqEdate").val()
-        });
-        console.log(parameteres);
-        $http.put(APIURL + '/UpdateEventTable', parameteres)
+            
+        };
+        console.log(updateData);
+        $http.put(APIURL + '/PutEventTable/'+eventID, updateData)
         .success(function (){
             alert("Updation successful");
+            $scope.childMethod = function(){
+                $rootScope.$emit("CallgetAPI", {});
+            }
+            
         })
         .error(function (){
             console.log("ERROR!!!");
